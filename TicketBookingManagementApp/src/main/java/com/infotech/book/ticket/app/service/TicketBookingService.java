@@ -24,9 +24,15 @@ public class TicketBookingService {
 	public void deleteTicket(Integer ticketId) {
 		ticketBookingDao.delete(ticketId);
 	}
-	public Ticket updateTicket(Integer ticketId, String newEmail) {
-		Ticket ticketFromDb = ticketBookingDao.findOne(ticketId);
-		ticketFromDb.setEmail(newEmail);
+	public Ticket updateTicket(Ticket ticket) {
+		System.out.println("ticket :"+ticket);
+		Ticket ticketFromDb = ticketBookingDao.findOne(ticket.getTicketId());
+		System.out.println("ticketFromDb :"+ticketFromDb);
+		ticketFromDb.setEmail(ticket.getEmail());
+		ticketFromDb.setPassengerName(ticket.getPassengerName());
+		ticketFromDb.setSourceStation(ticket.getSourceStation());
+		ticketFromDb.setDestStation(ticket.getDestStation());
+		//ticketFromDb.setBookingDate(ticket.getBookingDate());
 		Ticket upadedTicket = ticketBookingDao.save(ticketFromDb);
 		return upadedTicket;
 	}

@@ -45,6 +45,6 @@ public class TicketBookingController {
 	@CrossOrigin(origins="http://localhost:4200")
 	@PutMapping(value="/ticket/update")
 	public Ticket updateTicket(@RequestBody Ticket ticket){
-		return ticketBookingService.updateTicket(ticket.getTicketId(),ticket.getEmail());
+		return ticketBookingService.updateTicket(ticket);
 	}
 }

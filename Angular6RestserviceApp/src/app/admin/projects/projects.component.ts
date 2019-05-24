@@ -84,6 +84,7 @@ export class ProjectsComponent implements OnInit {
 
   onDeleteClick(event, index: number) {
     this.deleteIndex = index;
+    this.deleteProject.ticketId = this.projects[index].ticketId;
     this.deleteProject.passengerName = this.projects[index].passengerName;
     this.deleteProject.bookingDate = this.projects[index].bookingDate;
     this.deleteProject.destStation = this.projects[index].destStation;
