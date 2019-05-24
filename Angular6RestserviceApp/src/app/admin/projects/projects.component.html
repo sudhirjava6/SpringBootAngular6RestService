@@ -1,0 +1,214 @@
+<h1>Projects</h1>
+<div class="row">
+  <div class="col-8 mx-auto">
+    <div class="form-group form-row">
+      <label for="drpSearchBy" class="col-form-label col-3">Search:</label>
+      <div class="col-9">
+        <select class="form-control" id="drpSearchBy" name="SearchBy" [(ngModel)]="searchBy">
+          <option value="ProjectID">Project ID</option>
+          <option value="ProjectName">Project Name</option>
+          <option value="DateOfStart">Date of Start</option>
+          <option value="TeamSize">Team Size</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group form-row">
+      <label for="textSearchText" class="col-form-label col-3">Search:</label>
+      <div class="col-9">
+        <div class="input-group">
+          <input type="text" class="form-control" id="txtSearchText" name="SearchText" [(ngModel)]="searchText">
+          <div class="input-group-append" (click)="onSearchClick()">
+             <span class="input-group-text"><i class="fa fa-search"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-8 mx-auto">
+    <button class="btn btn-primary" data-toggle="modal" data-target="#newModal">Create Project</button>
+  </div>
+  <div class="col-8 mx-auto">
+    <table class="table">
+        <thead>
+            <th>ticket ID</th>
+            <th>passenger Name</th>
+            <th>bookingDate</th>
+            <th>sourceStation</th>
+            <th>destStation</th>
+            <th>email</th>
+          </thead>
+          <tbody>
+              <tr *ngFor="let project of projects; let i = index">
+              <td>{{project.ticketId}}</td>
+              <td>{{project.passengerName}}</td>
+              <td>{{project.bookingDate}}</td>
+              <td>{{project.sourceStation}}</td>
+              <td>{{project.destStation}}</td>
+              <td>{{project.email}}</td>
+              <td>
+                  <button class="btn btn-info" (click)="onEditClick($event, i)" data-toggle="modal"
+                    data-target="#editModal">Edit</button>&nbsp;
+                  <button class="btn btn-warning" (click)="onDeleteClick($event, i)" data-toggle="modal"
+                    data-target="#deleteModal">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+    </table>
+  </div>
+</div>
+
+<form>
+  <div class="modal" role="dialog" id="newModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width:700px">
+        <div class="modal-header">
+          <div class="modal-title">New Project</div>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group row">
+            <label for="txtNewBookingDate" class="col-sm-4 col-form-label">Booking Date</label>
+            <div class="col-sm-8">
+              <input type="date" id="txtNewBookingDate" style="width:180px" class="form-control" placeholder="Date"
+                name="bookingDate" [(ngModel)]="newProject.bookingDate">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtNewPassengerName" class="col-sm-4 col-form-label">Passenger Name</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtNewPassengerName" class="form-control" placeholder="Passenger Name"
+                name="passengerName" [(ngModel)]="newProject.passengerName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtNewdestStation" class="col-sm-4 col-form-label">Dest Station</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtNewdestStation" style="width:150px" class="form-control"
+                placeholder="destStation" name="destStation" [(ngModel)]="newProject.destStation">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtNewsourceStation" class="col-sm-4 col-form-label">source Station</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtNewsourceStation" style="width:150px" class="form-control"
+                placeholder="sourceStation" name="sourceStation" [(ngModel)]="newProject.sourceStation">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="email" class="col-sm-4 col-form-label">email</label>
+            <div class="col-sm-8">
+              <input type="text" id="email" style="width:150px" class="form-control" placeholder="email"
+                name="email" [(ngModel)]="newProject.email">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-success" data-dismiss="modal" (click)="onSaveClick()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Edit Project -->
+<form>
+  <div class="modal" role="dialog" id="editModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width:700px">
+        <div class="modal-header">
+          <div class="modal-title">Edit Project</div>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group row">
+            <label for="txtEditticketId" class="col-sm-4 col-form-label">Ticket ID</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtEditticketId" style="width:100px" class="form-control-plain-text"
+                placeholder="ticket ID" name="ticketId" [(ngModel)]="editProject.ticketId" disabled="disabled">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtEditBookingDate" class="col-sm-4 col-form-label">Booking Date</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtEditBookingDate" style="width:100px" class="form-control" placeholder="Booking Date"
+                name="bookingDate" [(ngModel)]="editProject.bookingDate">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtEditPassengerName" class="col-sm-4 col-form-label">Passenger Name</label>
+            <div class="col-sm-8">
+              <input type="text" id="txtEditPassengerName" class="form-control" placeholder="Passenger Name"
+                name="passengerName" [(ngModel)]="editProject.passengerName">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtEditdestStation" class="col-sm-4 col-form-label">Dest Station</label>
+            <div class="col-sm-8">
+              <input type="date" id="txtEditdestStation" style="width:150px" class="form-control"
+                placeholder="destStation" name="destStation" [(ngModel)]="editProject.destStation">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="txtEditsourceStation" class="col-sm-4 col-form-label">source Station</label>
+            <div class="col-sm-8">
+              <input type="date" id="txtEditsourceStation" style="width:150px" class="form-control"
+                placeholder="sourceStation" name="sourceStation" [(ngModel)]="editProject.sourceStation">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="email" class="col-sm-4 col-form-label">email</label>
+            <div class="col-sm-8">
+              <input type="number" id="email" style="width:150px" class="form-control" placeholder="email"
+                name="email" [(ngModel)]="editProject.email">
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-success" data-dismiss="modal" (click)="onUpdateClick()">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+<!-- Delete Project -->
+<form>
+  <div class="modal" role="dialog" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content" style="width:700px">
+        <div class="modal-header">
+          <div class="modal-title">Delete Project</div>
+          <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+        </div>
+        <div class="modal-body">
+
+          <div class="text-warning">Are you sure to delete this Project?</div>
+
+          
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-warning" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-success" data-dismiss="modal" (click)="onDeleteConfirmClick()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
